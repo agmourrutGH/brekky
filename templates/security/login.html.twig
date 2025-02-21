@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/login.css') }}?v=1.0">
+{% endblock %}
+
+{% block content %}
+    <div class="navbar">
+        <a href="{{ path('app_home') }}">
+        <div class="navbar-left"><img src="{{ asset('images/logo.webp') }}" alt="Logo de la pagina"></div>
+        </a>
+    </div>
+
+    
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {{ messages | join(', ') }}
+        </div>
+    {% endfor %}
+
+    <div class="center">
+        <div class="login-container">
+            <h2>Iniciar sesión o crear tu cuenta</h2>
+            <form action="{{ path('app_login') }}" method="post">
+                <label for="username">* Correo electrónico</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" required>
+
+                <label for="password">* Contraseña</label>
+                <input type="password" id="password" name="_password" required>
+
+                {% if error %}
+                    <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                <div class="checkbox-container">
+                    <input type="checkbox" id="remember" name="remember" checked>
+                    <label for="remember">Mantenerme conectado.</label>
+                    <a href="{{ path('app_detalles') }}">Detalles</a>
+                </div>
+
+                <button type="submit">Iniciar sesión</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Función para aplicar el efecto de fade out con slide up
+            function fadeOutAlert(alert) {
+                alert.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                alert.style.opacity = '0';
+                alert.style.transform = 'translateY(-20px)'; // Se desliza hacia arriba
+                setTimeout(function() {
+                    alert.remove();
+                }, 500); // Se elimina después de la animación
+            }
+
+            // Aplicar efecto a alertas existentes
+            var alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                setTimeout(function() {
+                    fadeOutAlert(alert);
+                }, 5000); // Se oculta después de 5 segundos
+            });
+
+            // MutationObserver para detectar nuevas alertas
+            var observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    mutation.addedNodes.forEach(function(node) {
+                        if (node.nodeType === 1 && node.classList.contains('alert')) {
+                            setTimeout(function() {
+                                fadeOutAlert(node);
+                            }, 5000);
+                        }
+                    });
+                });
+            });
+
+            observer.observe(document.body, { childList: true, subtree: true });
+        });
+    </script>
+    <style>
+        /* Estilos mejorados para las alertas */
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease-in-out;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Diferentes colores según el tipo de alerta */
+        .alert-success { background-color: #d4edda; color: #155724; border-left: 5px solid #28a745; }
+        .alert-error { background-color: #f8d7da; color: #721c24; border-left: 5px solid #dc3545; }
+        .alert-warning { background-color: #fff3cd; color: #856404; border-left: 5px solid #ffc107; }
+        .alert-info { background-color: #d1ecf1; color: #0c5460; border-left: 5px solid #17a2b8; }
+
+        /* Animación de entrada */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+{% endblock %}
+

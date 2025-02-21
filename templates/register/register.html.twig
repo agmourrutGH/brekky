@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registrar Cuenta{% endblock %}
+
+{% block stylesheets %}
+    {# Cargamos el CSS de registro desde la carpeta public/css #}
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}?v=1.0">
+
+{% endblock %}
+
+{% block content %}
+    {# Navbar con logo (utiliza asset() para la imagen) #}
+    <div class="navbar">
+        <a href="{{ path('app_home') }}">
+        <div class="navbar-left">
+            <img src="{{ asset('images/logo.webp') }}" alt="Logo de la página">
+        </div>
+        </a>
+    </div>
+
+    {# Mostramos los mensajes flash, en caso de existir #}
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {{ messages | join(', ') }}
+        </div>
+    {% endfor %}
+
+    <div class="container">
+        <div class="register-container">
+            <h2>Crear una cuenta</h2>
+            <p class="description">
+                Únase a Brekky® para poder ganar recomendaciones y ver la galería de la comunidad.
+            </p>
+            <p class="description1">* indica campo obligatorio.</p>
+            
+            {# Formulario de registro, se mantiene la acción y método para enviar los datos al controlador #}
+            <form action="{{ path('app_register') }}" method="post">
+                <label for="first-name">* Nombre de la cuenta</label>
+                <input type="text" id="first-name" name="nombre" required>
+
+                <label for="email">* Dirección de correo electrónico</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">* Contraseña</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <p class="description2">
+                    Cree una contraseña de entre 8 y 25 caracteres que incluya al menos 1 letra mayúscula y 1 letra
+                    minúscula, 1 número y 1 carácter especial, como un signo de exclamación o un asterisco.
+                </p>
+
+                <div class="checkbox-container">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">
+                        Estoy de acuerdo con las <a href="#">Condiciones de Brekky®</a> y 
+                        <a href="#">Declaración de privacidad de Brekky®</a>.
+                    </label>
+                </div>
+
+                <button type="submit">Crear una cuenta</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

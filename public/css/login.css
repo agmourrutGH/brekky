@@ -1,0 +1,126 @@
+body {
+    font-family: Helvetica neue, Helvetica, Arial, sans-serif;
+    background-color: #f4f4f4;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.navbar {
+    padding: 5px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: -1px 4px 5px 0px rgba(115, 107, 107, 0.7);
+    -webkit-box-shadow: -1px 4px 5px 0px rgba(115, 107, 107, 0.7);
+    -moz-box-shadow: -1px 4px 5px 0px rgba(115, 107, 107, 0.7);
+}
+
+.navbar-left img {
+    width: 70px;
+    margin-right: 20px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+    margin: 0;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 60px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    padding: 125px;
+}
+
+h2 {
+    margin-top: 10px;
+    margin-bottom: 40px;
+    margin-right: 5px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.checkbox-container {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.checkbox-container a {
+    margin-left: 5px;
+    color: rgb(151, 120, 90);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.checkbox-container a:hover {
+    text-decoration: underline;
+}
+
+.forgot-links {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.forgot-links a {
+    display: block;
+    color: rgb(151, 120, 90);
+    text-decoration: none;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.forgot-links a:hover {
+    text-decoration: underline;
+}
+
+button {
+    background-color: rgb(151, 120, 90);
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(174, 124, 73);
+}

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    {% include 'header.html.twig' %}
+{% endblock %}
+
+{% block title %}Menú | Brekky{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div class="header menu">
+            <div class="container">
+                <div class="wrapper-header">
+                    <span class="display-sm text-semibold">¡Disfrúta!</span>
+                    <h2 class="display-lg text-bold">Conoce nuestras bebidas y alimentos.</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="view grid.view-grid-menu.grid-category">
+                <div class="grid-content">
+                    <div class="subtitle line">Bebidas</div>
+
+                    <div class="grid grid-small grid-3-items">
+                        {% for key, producto in products %}
+                            <div class="grid-item">
+                                <div class="product-card">
+                                    {% if producto.Imagen %}
+                                    <img src="{{ asset('images/bebidas/' ~ producto.Imagen) }}" alt="{{ producto.Nombre }}" class="product-image">
+                                    {% else %}
+                                        <img src="{{ asset('images/default-product.png') }}" alt="Producto sin imagen" class="product-image">
+                                    {% endif %}
+                                    <div class="product-info">
+                                        <h3 class="product-name">{{ producto.Nombre }}</h3>
+                                        <p class="product-price">$ {{ producto.Price|number_format(2, '.', ',') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <p>No hay productos disponibles</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="grid-content"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

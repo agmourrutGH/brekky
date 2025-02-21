@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+{% include 'header.html.twig' %}
+{% endblock %}
+
+{% block title %}Homepage | Brekky{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<body>
+    <div class="row">
+        <div class="backgroud-color">
+            <div class="block-content">
+                <div class="block-image">
+                    <div class="placeholder">
+                        <picture>
+                            <source
+                                srcset="https://djftrby1k8irl.cloudfront.net/s3fs-public/2025-01%2FARG-UY.png?auto=format,compress&amp;q=70&amp;crop=focalpoint&amp;ar=1.8:1.0&amp;w=740&amp;fit=max 1x, https://djftrby1k8irl.cloudfront.net/s3fs-public/2025-01%2FARG-UY.png?auto=format,compress&amp;q=70&amp;crop=focalpoint&amp;ar=1.8:1.0&amp;w=740&amp;fit=max&amp;dpr=2 2x"
+                                media="(max-width: 768px)">
+                            <source
+                                srcset="https://djftrby1k8irl.cloudfront.net/s3fs-public/2025-01%2FARG-UY.png?auto=format,compress&amp;q=70&amp;crop=focalpoint&amp;ar=1.8:1.0&amp;w=1400&amp;fit=max 1x, https://djftrby1k8irl.cloudfront.net/s3fs-public/2025-01%2FARG-UY.png?auto=format,compress&amp;q=70&amp;crop=focalpoint&amp;ar=1.8:1.0&amp;w=1400&amp;fit=max&amp;dpr=2 2x">
+                            <img alt="VERANO A TU MANERA"
+                                srcset="https://djftrby1k8irl.cloudfront.net/s3fs-public/2025-01%2FARG-UY.png?auto=format,compress&amp;q=70&amp;crop=focalpoint&amp;ar=1.8:1.0&amp;w=370&amp;fit=max&amp;blur=20"
+                                width="1400" height="1076">
+                        </picture>
+                    </div>
+                </div>
+
+                <div class="text-block">
+                    <div class="wrapper-inner">
+                        <div class="title-block">
+                            <h1 class="title xxl">VIVI EL VERANO A TU MANERA</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="background-color-2">
+            <div class="block-content-2">
+                <div class="block-image">
+                    <div class="placeholder">
+                        <picture>
+                            <source
+                                srcset="https://djftrby1k8irl.cloudfront.net/s3fs-public/2024-07%2Fbanner%20web%20lavanda.png?auto=format,compress&amp;q=70&amp;crop=focalpoint&amp;ar=1.8:1.0&amp;w=740&amp;fit=max 1x, https://djftrby1k8irl.cloudfront.net/s3fs-public/2024-07%2Fbanner%20web%20lavanda.png?auto=format,compress&amp;q=70&amp;crop=focalpoint&amp;ar=1.8:1.0&amp;w=740&amp;fit=max&amp;dpr=2 2x"
+                                media="(max-width: 768px)">
+                            <source
+                                srcset="https://djftrby1k8irl.cloudfront.net/s3fs-public/2024-07%2Fbanner%20web%20lavanda.png?auto=format,compress&amp;q=70&amp;crop=focalpoint&amp;ar=1.8:1.0&amp;w=1400&amp;fit=max 1x, https://djftrby1k8irl.cloudfront.net/s3fs-public/2024-07%2Fbanner%20web%20lavanda.png?auto=format,compress&amp;q=70&amp;crop=focalpoint&amp;ar=1.8:1.0&amp;w=1400&amp;fit=max&amp;dpr=2 2x">
+                            <img alt="Lavanda Mocha Blanco "
+                                srcset="https://djftrby1k8irl.cloudfront.net/s3fs-public/2024-07%2Fbanner%20web%20lavanda.png?auto=format,compress&amp;q=70&amp;crop=focalpoint&amp;ar=1.8:1.0&amp;w=370&amp;fit=max&amp;blur=20"
+                                width="1400" height="1076">
+                        </picture>
+                    </div>
+                </div>
+                <div class="text-block">
+                    <div class="wrapper-inner">
+                        <h1 class="title xxl">
+                            ENCONTRÁ TU&nbsp;<strong>MOMENTO</strong>&nbsp;JUNTO A&nbsp;<strong>LA LAVANDA</strong>
+                        </h1>
+                    </div>
+                    <div class="field abstract">
+                        <p>Descubri nuestras bebidas de temporada</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+{% endblock %}
