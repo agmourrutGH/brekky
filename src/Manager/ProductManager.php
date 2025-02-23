@@ -24,7 +24,11 @@ class ProductManager
     public function getAllProducts()
     {
         $products = $this->productRepository->findAll();
-        dump($products); // Verifica si realmente trae los productos
         return $products;
+    }
+
+    public function getProduct(int $id): ?Product
+    {
+        return $this->productRepository->find($id);
     }
 }

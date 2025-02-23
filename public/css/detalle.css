@@ -1,0 +1,112 @@
+body {
+    margin: 0px;
+    font-family: Helvetica neue, Helvetica, Arial, sans-serif;
+    background-color: #fff;
+    color: rgba(0, 0, 0, .87);
+}
+
+.main-content {
+    background-color: #fff;
+    overflow: hidden;
+    padding-bottom: 30px;
+    align-content: center;
+    align-items: center;
+    display: flow;
+    justify-content: center;
+}
+
+.node-body-article {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 700px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.container {
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 1240px;
+}
+
+.block-highlight-header, .node--article-header {
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+
+.wrapper-header {
+    display: flex;
+    align-items: center; /* Centra verticalmente la imagen con el texto */
+    justify-content: center; /* Centra horizontalmente el contenido */
+    gap: 40px; /* Más espacio entre la imagen y el texto */
+    max-width: 900px;
+    margin: auto;
+    text-align: left;
+}
+
+.product-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-image img {
+    max-width: 180px; /* Un poco más grande para más presencia */
+    height: auto;
+    display: block;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Alinear el texto con la imagen */
+    max-width: 400px; /* Limitar ancho para mejor lectura */
+}
+
+.product-text h1 {
+    font-size: 2rem; /* Hacer el nombre más grande */
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+
+.product-price h3 {
+    font-size: 1.75rem; /* Aumentar el tamaño del precio */
+    color: white;
+    margin-top: 5px;
+}
+
+.product-description {
+    font-weight: bold;
+    font-size: 1.8rem; /* Hacer la descripción más grande */
+    line-height: 1.5; /* Mejor espacio entre líneas */
+    color: rgba(255, 255, 255, 0.9); /* Blanco con un poco de transparencia */
+    margin-top: 15px; /* Espacio después del precio */
+    text-align: justify; /* Justificar el texto para mejor lectura */
+}
+
+
+
+.bg-house-green {
+    background-color: rgb(92, 73, 54);
+    display: flex;
+    justify-content: center;
+}
+
+.node--article-header .title-xxl, .node--article-header h1 {
+    letter-spacing: inherit;
+}
+
+.text-bold {
+    font-weight: 700;
+}
+
+.display-xl {
+    font-size: 1.875rem;
+}
+
+.field-product-name{
+    color: white;
+}

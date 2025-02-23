@@ -1,14 +1,14 @@
 {% block header %}
 <header>
-    <link rel="stylesheet" href="{{ asset('css/header.css') }}?v=1.2">
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}?v={{ random() }}">
 
     <div class="navbar">
         <div class="navbar-left">
             <a href="{{ path('app_home') }}">
-                <img src="../public/images/logo.webp" alt="Logo de la pagina">
+                <img src="{{ asset('images/logo.webp') }}" alt="Logo">
             </a>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a class="a" href="{{ path('app_menu') }}">
+            <a class="a" href="{{ path('product_list') }}">
                 <div class="menu">Menú</div>
             </a>
             <div>Recomendaciones</div>

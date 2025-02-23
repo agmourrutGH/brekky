@@ -2,33 +2,48 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
-use App\Repository\ProductRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Manager\ProductManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 final class ProductController extends AbstractController
 {
-    private ProductManager $productManager;
+    private ProductManager $productmanager;
     public function __construct(ProductManager $productManager)
     {
-        $this->productManager = $productManager;
+        $this->productmanager = $productManager;
     }
 
     #[Route('/product', name: 'product_list')]
     public function list(ProductManager $productManager): Response
-{
-    $products = $productManager->getAllProducts(); // Esto debería traer los productos
+    {
+        $products = $productManager->getAllProducts();
 
-    dd($products);
+        $bebidas = [];
+        $comidas = [];
 
-    return $this->render('menu/menu.html.twig', [
-        'productos' => $products, // Aquí le pasas la variable productos a la vista
-    ]);
-}
+        foreach ($products as $product) {
+            $categoriaNombre = $product->getCategoria()->getNombre();
 
+            // Separar productos en bebidas y comidas
+            if (in_array($categoriaNombre, ['Bebidas Frias', 'Jugos Helados', 'Té Caliente', 'Bebidas Calientes'])) {
+                $bebidas[] = $product;
+            } elseif (in_array($categoriaNombre, ['Porridge', 'Sandwich', 'Focaccia'])) {
+                $comidas[] = $product;
+            }
+        }
+
+        return $this->render('menu/menu.html.twig', [
+            'bebidas' => $bebidas,
+            'comidas' => $comidas,
+        ]);
+    }
+
+    #[Route('/product/{idProduct}', name: 'detalle_product')]
+    public function detalle_product($idProduct): Response
+    {
+        $product = $this->productmanager->getProduct($idProduct);
+        return $this->render('detalle/detalle.html.twig',['productos'=>$product]);
+    }
 }

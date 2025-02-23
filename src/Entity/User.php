@@ -1,13 +1,11 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -27,7 +25,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $photo = null;
+    private ?string $profilePicture = null; // Renombrado de 'photo' a 'profilePicture'
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $direccion = null;
@@ -35,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = []; // Cambiado de 'rol' a 'roles' para más claridad
 
-    
+    private ?string $plainPassword = null; // Campo virtual para la contraseña en texto claro
 
     public function __construct()
     {
@@ -84,14 +82,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPhoto(): ?string
+    public function getProfilePicture(): ?string
     {
-        return $this->photo;
+        return $this->profilePicture; // Renombrado a 'getProfilePicture'
     }
 
-    public function setPhoto(string $photo): static
+    public function setProfilePicture(?string $profilePicture): static
     {
-        $this->photo = $photo;
+        $this->profilePicture = $profilePicture;
 
         return $this;
     }
@@ -147,4 +145,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
+    // Getter y Setter para plainPassword
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): static
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
 }

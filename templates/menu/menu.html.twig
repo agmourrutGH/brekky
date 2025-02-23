@@ -1,53 +1,104 @@
 {% extends 'base.html.twig' %}
-
 {% block header %}
-    {% include 'header.html.twig' %}
+{% include 'header.html.twig'%}
 {% endblock %}
-
 {% block title %}Menú | Brekky{% endblock %}
-
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
+<link rel="stylesheet" href="{{ asset('css/menu.css') }}?v={{ random() }}" />
 {% endblock %}
 
 {% block content %}
-    <div class="main-content">
-        <div class="header menu">
-            <div class="container">
-                <div class="wrapper-header">
-                    <span class="display-sm text-semibold">¡Disfrúta!</span>
-                    <h2 class="display-lg text-bold">Conoce nuestras bebidas y alimentos.</h2>
-                </div>
-            </div>
-        </div>
-
+<div class="main-content">
+    <div class="header menu">
         <div class="container">
-            <div class="view grid.view-grid-menu.grid-category">
-                <div class="grid-content">
-                    <div class="subtitle line">Bebidas</div>
-
-                    <div class="grid grid-small grid-3-items">
-                        {% for key, producto in products %}
-                            <div class="grid-item">
-                                <div class="product-card">
-                                    {% if producto.Imagen %}
-                                    <img src="{{ asset('images/bebidas/' ~ producto.Imagen) }}" alt="{{ producto.Nombre }}" class="product-image">
-                                    {% else %}
-                                        <img src="{{ asset('images/default-product.png') }}" alt="Producto sin imagen" class="product-image">
-                                    {% endif %}
-                                    <div class="product-info">
-                                        <h3 class="product-name">{{ producto.Nombre }}</h3>
-                                        <p class="product-price">$ {{ producto.Price|number_format(2, '.', ',') }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        {% else %}
-                            <p>No hay productos disponibles</p>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="grid-content"></div>
+            <div class="wrapper-header">
+                <span class="display-sm text-semibold">¡Disfrúta!</span>
+                <h2 class="display-lg text-bold">
+                    Conoce nuestras bebidas y alimentos.
+                </h2>
             </div>
         </div>
     </div>
+
+    <div class="container">
+        <div class="view grid.view-grid-menu.grid-category">
+            <div class="grid-content">
+                <div class="subtitle line">Bebidas</div>
+                <div class="content-grid">
+                    <div class="grid grid-small grid-3-items">
+                        {% for key, product in bebidas %}
+                        <div>
+                            <div class="item product product-small product-small--product small--product">
+                                <a href="{{ path('detalle_product', { idProduct: product.id }) }}">
+                                    <div class="item-wrapper">
+                                        <div class="field field-thumbnail">
+                                            <div class="placeholder">
+                                                {% if product.Imagen %}
+                                                <img src="{{ asset('images/bebidas/' ~ product.Imagen) }}"
+                                                    alt="{{ product.Nombre }}" class="product-image" />
+                                                {% else %}
+                                                <img src="{{ asset('images/default-product.png') }}"
+                                                    alt="Producto sin imagen" class="product-image" />
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="item-text">
+                                            <div class="field field-product field-product-name">
+                                                <h3 class="display-sm text-semibold">
+                                                    {{ product.Nombre }}
+                                                </h3>
+                                            </div>
+                                            <div class="field field-product field-product-abstract"></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <p>No hay bebidas disponibles</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="grid-content">
+                <div class="subtitle line">Comida</div>
+                <div class="content-grid">
+                    <div class="grid grid-small grid-3-items">
+                        {% for key, product in comidas %}
+                        <div>
+                            <div class="item product product-small product-small--product small--product">
+                                <a href="{{ path('detalle_product', { idProduct: product.id }) }}">
+                                    <div class="item-wrapper">
+                                        <div class="field field-thumbnail">
+                                            <div class="placeholder">
+                                                {% if product.Imagen %}
+                                                <img src="{{ asset('images/comidas/' ~ product.Imagen) }}"
+                                                    alt="{{ product.Nombre }}" class="product-image" />
+                                                {% else %}
+                                                <img src="{{ asset('images/default-product.png') }}"
+                                                    alt="Producto sin imagen" class="product-image" />
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="item-text">
+                                            <div class="field field-product field-product-name">
+                                                <h3 class="display-sm text-semibold">
+                                                    {{ product.Nombre }}
+                                                </h3>
+                                            </div>
+                                            <div class="field field-product field-product-abstract"></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <p>No hay comidas disponibles</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

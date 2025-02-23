@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block header %}
+{% include 'header.html.twig' %}
+{% endblock %}
+{% block title %}Menú | Brekky{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/detalle.css') }}?v={{ random() }}" />
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="node--article-header header-product bg-house-green text-white text-center">
+        <div class="container">
+            <div class="wrapper-header">
+                
+                
+                <div class="product-image">
+                    <div class="field field-thumbnail">
+                        {% set carpeta = 'bebidas' %}
+                        {% if productos.categoria.nombre in ['Porridge', 'Sandwich', 'Focaccia'] %}
+                            {% set carpeta = 'comidas' %}
+                        {% endif %}
+
+                        {% if productos.imagen %}
+                            <img class="imageDetails" src="{{ asset('images/' ~ carpeta ~ '/' ~ productos.imagen) }}" alt="{{ productos.nombre }}" />
+                        {% else %}
+                            <img class="imageDetails" src="{{ asset('images/default-product.png') }}" alt="Producto sin imagen" />
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Contenedor para el texto (nombre y precio) -->
+                <div class="product-info">
+                    <div class="product-text">
+                        <h1 class="display-xl text-bold">{{ productos.nombre }}</h1>
+                    </div>
+                    <div class="product-price">
+                        <h3 class="display-xl text-bold">${{ productos.price }}</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="node-body-article">
+        <div class="container">
+            <div class="field-field-product-bio font-paragraph-body">
+                <div class="code-paragraph">
+                    <p>{{ productos.descripcion }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
