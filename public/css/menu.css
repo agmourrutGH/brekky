@@ -114,3 +114,18 @@ a{
     display: flex;
     justify-content: center;
 }
+
+.admin-panel{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 0px;
+}
+.admin-panel:hover{
+    color: blue;
+}
+
+.admin-span{
+text-decoration: underline;
+}
+

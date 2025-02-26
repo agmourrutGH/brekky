@@ -16,7 +16,7 @@ class Categoria
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Nombre = null;
+    private ?string $nombre = null;
 
     /**
      * @var Collection<int, Product>
@@ -36,12 +36,12 @@ class Categoria
 
     public function getNombre(): ?string
     {
-        return $this->Nombre;
+        return $this->nombre;
     }
 
-    public function setNombre(string $Nombre): static
+    public function setNombre(string $nombre): static
     {
-        $this->Nombre = $Nombre;
+        $this->nombre = $nombre;
 
         return $this;
     }

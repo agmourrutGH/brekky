@@ -27,13 +27,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $profilePicture = null; // Renombrado de 'photo' a 'profilePicture'
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $direccion = null;
-
     #[ORM\Column]
     private array $roles = []; // Cambiado de 'rol' a 'roles' para más claridad
 
-    private ?string $plainPassword = null; // Campo virtual para la contraseña en texto claro
+    // Nuevos campos para latitud y longitud
+    #[ORM\Column(type: "float", nullable: true)]
+    private ?float $latitud = null;
+
+    #[ORM\Column(type: "float", nullable: true)]
+    private ?float $longitud = null;
+
+    private ?string $plainPassword = null; 
 
     public function __construct()
     {
@@ -94,14 +98,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getDireccion(): ?string
+    // Nuevos métodos para latitud y longitud
+    public function getLatitud(): ?float
     {
-        return $this->direccion;
+        return $this->latitud;
     }
 
-    public function setDireccion(string $direccion): static
+    public function setLatitud(?float $latitud): static
     {
-        $this->direccion = $direccion;
+        $this->latitud = $latitud;
+
+        return $this;
+    }
+
+    public function getLongitud(): ?float
+    {
+        return $this->longitud;
+    }
+
+    public function setLongitud(?float $longitud): static
+    {
+        $this->longitud = $longitud;
 
         return $this;
     }

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+{% include 'header.html.twig'%}
+{% endblock %}
+
+{% block title %}Encuentra tu Tienda{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/map.css') }}?v={{ random() }}" />
+{% endblock %}
+
+{% block content %}
+<head>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_3cfnh2Do4XvFjz7Euqw9H7Vi1MbuxGk&callback=initMap&libraries=places" async defer></script>
+    <script>
+    let map;
+    let markers = [];
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: -31.6235, lng: -60.7033 },
+            zoom: 15,
+        });
+
+        
+        const markerLocations = [
+    {% for tienda in tiendas %}
+        { lat: {{ tienda.getLatitud() }}, lng: {{ tienda.getLongitud() }}, title: "{{ tienda.getNombre()|e('js') }}" }{% if not loop.last %},{% endif %}
+    {% endfor %}
+];
+
+
+        markerLocations.forEach(location => {
+            const marker = new google.maps.Marker({
+                map: map,
+                position: { lat: location.lat, lng: location.lng },
+                title: location.title,
+                draggable: true,
+            });
+
+            markers.push(marker);
+        });
+    }
+</script>
+
+</head>
+
+<body onload="initMap()">
+    <h1>Buscar Tiendas de Café</h1>
+    <input id="search-input" class="controls" type="text" placeholder="Buscar una dirección" style="width: 300px; margin-bottom: 10px;" />
+    <div id="map" style="height: 500px; width: 100%;"></div>
+</body>
+{% endblock %}
+
+
+{% block footer %}
+{% include 'footer.html.twig' %}
+{% endblock %}

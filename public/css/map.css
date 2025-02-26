@@ -1,0 +1,60 @@
+/* Estilos generales para el cuerpo de la página */
+body {
+    font-family: Helvetica neue, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Título alineado a la izquierda */
+h1 {
+    font-size: 28px;
+    color: #333;
+    margin-top: 20px;
+    margin-left: 30px; /* Alinea el título a la izquierda */
+}
+
+/* Estilo del campo de búsqueda */
+#search-input {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: block;
+}
+
+/* Contenedor del mapa */
+#map {
+    width: 100%;
+    height: 500px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 130px; /* Separa el mapa del footer */
+}
+
+/* Footer */
+footer {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Aseguramos la responsividad para dispositivos móviles */
+@media (max-width: 768px) {
+    #search-input {
+        width: 90%;
+    }
+}

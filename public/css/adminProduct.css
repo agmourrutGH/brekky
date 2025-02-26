@@ -1,0 +1,187 @@
+/* Estilo general */
+body {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenido principal */
+.container {
+    margin-left: 250px;  /* Agregar espacio suficiente para el sidebar */
+    padding: 20px;
+    width: calc(100% - 250px);  /* El contenido ocupa el resto del ancho disponible */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 100%;  /* Ancho completo */
+    background-color: #2f3b52;
+    padding: 20px;
+    color: white;
+    border-radius: 0;  /* Eliminamos el borde redondeado para que ocupe toda la esquina */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: 18vh;  /* Asegura que ocupe toda la altura de la página */
+    position: absolute;  /* Lo hace ir desde una esquina a la otra */
+    
+    left: 0;  /* Colocamos el sidebar en la parte izquierda */
+    z-index: 1000;  /* Asegura que esté encima del contenido */
+}
+
+/* Título del sidebar */
+.sidebar h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+/* Enlaces del sidebar */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+    display: block;
+    padding: 8px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: #1d2a3a;
+}
+
+
+/* Título */
+h1 {
+    font-size: 2em;
+    color: #333;
+    margin: 30px 0;
+    text-align: center;
+}
+
+/* Estilo de la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 12px 20px;
+    text-align: left;
+}
+
+table th {
+    background-color: #3b4a66;
+    color: white;
+    font-weight: bold;
+}
+
+table td {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+table .resizable {
+    position: relative;
+    cursor: col-resize;
+}
+
+table .resizer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background-color: #3b4a66;
+    cursor: col-resize;
+}
+
+table .imageDetails {
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Diseño para celdas de descripción */
+.descripcion {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Botones y enlaces */
+.new-product {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: rgb(115, 154, 211);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.new-product:hover {
+    background-color: rgb(183, 144, 106);
+}
+
+/* Estilos adicionales */
+.container-newproduct {
+    display: flex;
+    justify-content: flex-end;
+    padding: 2vh;
+    gap: 8vw;
+    height: 19vh;
+    width: calc(100% - 250px);  /* Esto asegura que el contenedor ocupe todo el espacio disponible menos el espacio del sidebar */
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%; /* El sidebar ocupa todo el ancho en pantallas más pequeñas */
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        text-align: left;
+    }
+
+    table th, table td {
+        padding: 8px 12px;
+    }
+
+    .container-newproduct {
+        width: 100%; /* Ajuste para pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    table th, table td {
+        font-size: 0.9em;
+    }
+
+    button, a {
+        font-size: 0.9em;
+        padding: 8px 15px;
+    }
+}

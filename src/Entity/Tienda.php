@@ -16,11 +16,12 @@ class Tienda
     #[ORM\Column(length: 255)]
     private ?string $Nombre = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Direccion = null;
+    #[ORM\Column(type: "decimal", precision: 10, scale: 7)]
+    private ?float $Latitud = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Descripcion = null;
+    #[ORM\Column(type: "decimal", precision: 10, scale: 7)]
+    private ?float $Longitud = null;
+
 
     public function getId(): ?int
     {
@@ -39,27 +40,26 @@ class Tienda
         return $this;
     }
 
-    public function getDireccion(): ?string
+    public function getLatitud(): ?float
     {
-        return $this->Direccion;
+        return $this->Latitud;
     }
-
-    public function setDireccion(string $Direccion): static
+    
+    public function setLatitud(float $Latitud): static
     {
-        $this->Direccion = $Direccion;
-
+        $this->Latitud = $Latitud;
         return $this;
     }
-
-    public function getDescripcion(): ?string
+    
+    public function getLongitud(): ?float
     {
-        return $this->Descripcion;
+        return $this->Longitud;
     }
-
-    public function setDescripcion(string $Descripcion): static
+    
+    public function setLongitud(float $Longitud): static
     {
-        $this->Descripcion = $Descripcion;
-
+        $this->Longitud = $Longitud;
         return $this;
     }
+    
 }

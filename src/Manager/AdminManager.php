@@ -5,7 +5,6 @@ namespace App\Manager;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 
-
 class AdminManager
 {
     private EntityManagerInterface $entityManager;
@@ -15,9 +14,9 @@ class AdminManager
         $this->entityManager = $entityManager;
     }
 
-    public function obtenerProducts():array
+    public function obtenerProductosOrdenadosPorPrecio(): array
     {
         return $this->entityManager->getRepository(Product::class)
-             ->findBy([]);
+            ->findBy([], ['Price' => 'DESC']);  // Puedes cambiar 'Price' por el campo que desees ordenar
     }
 }

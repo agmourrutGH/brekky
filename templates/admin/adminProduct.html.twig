@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+{% block header %}
+{% include 'header.html.twig' %}
+{% endblock %}
+{% block title %}Administrar Productos | Brekky{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/adminProduct.css') }}?v={{ random() }}" />
+{% endblock %}
+
+{% block content %}
+
+<h1>Películas - Panel de Administración</h1>
+
+<div class="container-newproduct">
+    <nav class="sidebar">
+        <h2>Administración</h2>
+        <ul>
+            <li><a class="new-product" id="crearPeliculaA" href="{{ path('new_product') }}">Agregar producto</a></li>
+        </ul>
+    </nav>
+</div>
+
+<table class="productos-table">
+    <thead>
+        <tr>
+            <th class="resizable">Nombre <div class="resizer"></div></th>
+            <th class="resizable">Descripción <div class="resizer"></div></th>
+            <th class="resizable">Precio <div class="resizer"></div></th>
+            <th class="resizable">Imagen <div class="resizer"></div></th>
+            <th class="resizable">Categoría <div class="resizer"></div></th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+            <tr>
+                <td class="resizable">{{ producto.nombre }}</td>
+                <td class="resizable">{{ producto.descripcion }}</td>
+                <td class="resizable">${{ producto.price }}</td>
+                <td class="resizable">
+                    {% set carpeta = 'bebidas' %}
+                    {% if producto.categoria.nombre in ['Porridge', 'Sandwich', 'Focaccia'] %}
+                        {% set carpeta = 'comidas' %}
+                    {% endif %}
+                    {% if producto.imagen %}
+                        <img class="imageDetails" src="{{ asset('images/' ~ carpeta ~ '/' ~ producto.imagen) }}" alt="{{ producto.nombre }}" />
+                    {% else %}
+                        <img class="imageDetails" src="{{ asset('images/default-product.png') }}" alt="Producto sin imagen" />
+                    {% endif %}
+                </td>
+                <td class="resizable">{{ producto.categoria.nombre }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
+{% block footer %}
+{% include 'footer.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Funcionalidad de redimensionamiento de columnas
+    document.querySelectorAll('.resizable').forEach(function (headerCell) {
+        const resizer = headerCell.querySelector('.resizer');
+        let isResizing = false;
+        let lastDownX = 0;
+        let startWidth = 0;
+        const thIndex = Array.from(headerCell.parentElement.children).indexOf(headerCell);
+
+        resizer.addEventListener('mousedown', function (e) {
+            isResizing = true;
+            lastDownX = e.clientX;
+            startWidth = headerCell.offsetWidth;
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+        });
+
+        function handleMouseMove(e) {
+            if (!isResizing) return;
+
+            const offset = e.clientX - lastDownX;
+            const newWidth = startWidth + offset;
+
+            // Asegurarnos de que el nuevo tamaño no sea menor a 50px
+            if (newWidth > 50) {
+                headerCell.style.width = newWidth + 'px';
+
+                // Sincronizamos el tamaño de las celdas de esa columna
+                const rows = document.querySelectorAll('tbody tr');
+                rows.forEach(function (row) {
+                    const td = row.children[thIndex];
+                    td.style.width = newWidth + 'px';
+                });
+            }
+        }
+
+        function handleMouseUp() {
+            isResizing = false;
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+        }
+    });
+});
+</script>
+{% endblock %}
