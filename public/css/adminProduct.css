@@ -26,7 +26,7 @@ body {
     position: absolute;  /* Lo hace ir desde una esquina a la otra */
     
     left: 0;  /* Colocamos el sidebar en la parte izquierda */
-    z-index: 1000;  /* Asegura que esté encima del contenido */
+    
 }
 
 /* Título del sidebar */
