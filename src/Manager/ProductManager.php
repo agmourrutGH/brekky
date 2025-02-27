@@ -71,4 +71,38 @@ class ProductManager
 
         return $product;
     }
+
+    public function updateProduct(Product $product, string $nombre, string $descripcion, float $precio, Categoria $categoria, ?UploadedFile $imagen = null): Product
+    {
+        $product->setNombre($nombre);
+        $product->setDescripcion($descripcion);
+        $product->setPrice($precio);
+        $product->setCategoria($categoria);
+
+        // Manejar la imagen si se sube una nueva
+        if ($imagen) {
+            $nombreArchivo = $imagen->getClientOriginalName();
+            $folderPath = 'public/images/' . strtolower($categoria->getNombre());
+
+            if (!is_dir($folderPath)) {
+                mkdir($folderPath, 0777, true);
+            }
+
+            try {
+                $imagen->move($folderPath, $nombreArchivo);
+                $product->setImagen($nombreArchivo);
+            } catch (FileException $e) {
+                throw new \Exception('Error al subir la imagen');
+            }
+        }
+
+        $this->entityManager->flush();
+        return $product;
+    }
+
+    public function deleteProduct(Product $product): void
+    {
+        $this->entityManager->remove($product);
+        $this->entityManager->flush();
+    }
 }

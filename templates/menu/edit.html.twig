@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block header %}
+{% include 'header.html.twig'%}
+{% endblock %}
+{% block title %}Crear Producto | Brekky{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/editProducto.css') }}?v={{ random() }}">
+{% endblock %}
+
+{% block body %}
+<h2>Editar Producto</h2>
+
+<form action="{{ path('update_product', {idProduct: producto.id}) }}" method="POST" enctype="multipart/form-data">
+    <label>Nombre:</label>
+    <input type="text" name="nombre" value="{{ producto.nombre }}" required>
+
+    <label>Descripción:</label>
+    <textarea name="descripcion" required>{{ producto.descripcion }}</textarea>
+
+    <label>Precio:</label>
+    <input type="number" name="precio" value="{{ producto.price }}" step="0.01" required>
+
+    <label>Categoría:</label>
+    <select name="categoria">
+        {% for categoria in categorias %}
+            <option value="{{ categoria.nombre }}" {% if categoria.nombre == producto.categoria.nombre %}selected{% endif %}>
+                {{ categoria.nombre }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>Imagen:</label>
+    <input type="file" name="imagen">
+
+    <button type="submit">Actualizar</button>
+</form>
+
+        <script>
+        // Aviso opcional para la portada
+        document.getElementById('portada_url').addEventListener('input', function() {
+            if (this.value) {
+                alert('Se priorizará la URL de la portada sobre el archivo.');
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block footer %}
+{% include 'footer.html.twig' %}
+{% endblock %}

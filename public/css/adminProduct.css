@@ -185,3 +185,35 @@ table .imageDetails {
         padding: 8px 15px;
     }
 }
+
+.btn-eliminar, .btn-modificar, .btn-crear {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 1px;
+}
+
+.btn-eliminar {
+    background-color: #ff3232;
+}
+
+.btn-modificar {
+    background-color: #20232a;
+}
+
+.btn-modificar:hover {
+    background-color: black;
+}
+
+.btn-eliminar:hover {
+    background-color: #ff0000;
+}
+.btn-eliminar a, .btn-modificar a, .btn-crear a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
