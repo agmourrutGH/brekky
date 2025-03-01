@@ -2,6 +2,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -37,12 +39,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: "float", nullable: true)]
     private ?float $longitud = null;
 
-    private ?string $plainPassword = null; 
+    private ?string $plainPassword = null;
+
+    /**
+     * @var Collection<int, Galeria>
+     */
+    #[ORM\OneToMany(targetEntity: Galeria::class, mappedBy: 'user')]
+    private Collection $galerias;
+
+    /**
+     * @var Collection<int, Calificacion>
+     */
+    #[ORM\OneToMany(targetEntity: Calificacion::class, mappedBy: 'user')]
+    private Collection $calificacions; 
 
     public function __construct()
     {
         // Asignar un rol por defecto
         $this->roles = ['ROLE_USER'];
+        $this->galerias = new ArrayCollection();
+        $this->calificacions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -171,6 +187,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPlainPassword(?string $plainPassword): static
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Galeria>
+     */
+    public function getGalerias(): Collection
+    {
+        return $this->galerias;
+    }
+
+    public function addGaleria(Galeria $galeria): static
+    {
+        if (!$this->galerias->contains($galeria)) {
+            $this->galerias->add($galeria);
+            $galeria->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGaleria(Galeria $galeria): static
+    {
+        if ($this->galerias->removeElement($galeria)) {
+            // set the owning side to null (unless already changed)
+            if ($galeria->getUser() === $this) {
+                $galeria->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Calificacion>
+     */
+    public function getCalificacions(): Collection
+    {
+        return $this->calificacions;
+    }
+
+    public function addCalificacion(Calificacion $calificacion): static
+    {
+        if (!$this->calificacions->contains($calificacion)) {
+            $this->calificacions->add($calificacion);
+            $calificacion->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCalificacion(Calificacion $calificacion): static
+    {
+        if ($this->calificacions->removeElement($calificacion)) {
+            // set the owning side to null (unless already changed)
+            if ($calificacion->getUser() === $this) {
+                $calificacion->setUser(null);
+            }
+        }
 
         return $this;
     }

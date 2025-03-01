@@ -110,61 +110,60 @@ final class ProductController extends AbstractController
     }
 
     #[Route('/product/edit/{idProduct}', name: 'edit_product')]
-public function edit(int $idProduct): Response
-{
-    $product = $this->productmanager->getProduct($idProduct);
+    public function edit(int $idProduct): Response
+    {
+        $product = $this->productmanager->getProduct($idProduct);
 
-    if (!$product) {
-        throw $this->createNotFoundException('Producto no encontrado.');
+        if (!$product) {
+            throw $this->createNotFoundException('Producto no encontrado.');
+        }
+
+        $categorias = $this->categoriaRepository->findAll();
+
+        return $this->render('menu/edit.html.twig', [
+            'producto' => $product,
+            'categorias' => $categorias,
+        ]);
     }
 
-    $categorias = $this->categoriaRepository->findAll();
+    #[Route('/product/update/{idProduct}', name: 'update_product', methods: ['POST'])]
+    public function update(Request $request, int $idProduct): Response
+    {
+        $product = $this->productmanager->getProduct($idProduct);
 
-    return $this->render('menu/edit.html.twig', [
-        'producto' => $product,
-        'categorias' => $categorias,
-    ]);
-}
+        if (!$product) {
+            throw $this->createNotFoundException('Producto no encontrado.');
+        }
 
-#[Route('/product/update/{idProduct}', name: 'update_product', methods: ['POST'])]
-public function update(Request $request, int $idProduct): Response
-{
-    $product = $this->productmanager->getProduct($idProduct);
+        $nombre = $request->request->get('nombre');
+        $descripcion = $request->request->get('descripcion');
+        $precio = (float) $request->request->get('precio');
+        $categoriaNombre = $request->request->get('categoria');
+        $imagen = $request->files->get('imagen');
 
-    if (!$product) {
-        throw $this->createNotFoundException('Producto no encontrado.');
+        $categoria = $this->categoriaRepository->findOneBy(['nombre' => $categoriaNombre]);
+
+        if (!$categoria) {
+            $this->addFlash('error', 'La categoría no existe.');
+            return $this->redirectToRoute('edit_product', ['idProduct' => $idProduct]);
+        }
+
+        $this->productmanager->updateProduct($product, $nombre, $descripcion, $precio, $categoria, $imagen);
+
+        return $this->redirectToRoute('detalle_product', ['idProduct' => $idProduct]);
     }
 
-    $nombre = $request->request->get('nombre');
-    $descripcion = $request->request->get('descripcion');
-    $precio = (float) $request->request->get('precio');
-    $categoriaNombre = $request->request->get('categoria');
-    $imagen = $request->files->get('imagen');
+    #[Route('/product/delete/{idProduct}', name: 'delete_product', methods: ['POST'])]
+    public function delete(int $idProduct): Response
+    {
+        $product = $this->productmanager->getProduct($idProduct);
 
-    $categoria = $this->categoriaRepository->findOneBy(['nombre' => $categoriaNombre]);
+        if (!$product) {
+            throw $this->createNotFoundException('Producto no encontrado.');
+        }
 
-    if (!$categoria) {
-        $this->addFlash('error', 'La categoría no existe.');
-        return $this->redirectToRoute('edit_product', ['idProduct' => $idProduct]);
+        $this->productmanager->deleteProduct($product);
+
+        return $this->redirectToRoute('product_list');
     }
-
-    $this->productmanager->updateProduct($product, $nombre, $descripcion, $precio, $categoria, $imagen);
-
-    return $this->redirectToRoute('detalle_product', ['idProduct' => $idProduct]);
-}
-
-#[Route('/product/delete/{idProduct}', name: 'delete_product', methods: ['POST'])]
-public function delete(int $idProduct): Response
-{
-    $product = $this->productmanager->getProduct($idProduct);
-
-    if (!$product) {
-        throw $this->createNotFoundException('Producto no encontrado.');
-    }
-
-    $this->productmanager->deleteProduct($product);
-
-    return $this->redirectToRoute('product_list');
-}
-
 }

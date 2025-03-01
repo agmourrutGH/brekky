@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+{% block header %}
+{% include 'header.html.twig' %}
+{% endblock %}
+{% block title %}Galeria | Brekky{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/galeria.css') }}?v={{ random() }}" />
+{% endblock %}
+
+{% block body %}
+<h1 class="page-title">Galería</h1>
+<!-- Mostrar todas las imágenes y calificación debajo de cada una -->
+<div class="gallery-container">
+    {% for galeria in galerias %}
+    <div class="gallery-item">
+        {% if galeria.imagen %}
+        <img class="gallery-image" src="{{ asset('uploads/imagenes/' ~ galeria.imagen) }}" alt="Imagen de la galería">
+        {% else %}
+        <img class="gallery-image" src="{{ asset('images/default-product.png') }}" alt="Imagen por defecto">
+        {% endif %}
+
+        <p class="gallery-description">{{ galeria.descripcion }}</p>
+
+
+        <!-- Formulario para calificar la imagen -->
+        <form method="POST" action="{{ path('app_galeria') }}">
+            <input type="hidden" name="calificar" value="1">
+            <input type="hidden" name="galeria_id" value="{{ galeria.id }}">
+
+            <div class="star-rating">
+                {% set userRating = galeria.calificacionUsuario %}
+
+                <input type="radio" name="puntuacion" value="5" id="star5-{{ galeria.id }}" {% if userRating==5
+                    %}checked{% endif %}>
+                <label for="star5-{{ galeria.id }}" class="star">&#9733;</label>
+
+                <input type="radio" name="puntuacion" value="4" id="star4-{{ galeria.id }}" {% if userRating==4
+                    %}checked{% endif %}>
+                <label for="star4-{{ galeria.id }}" class="star">&#9733;</label>
+
+                <input type="radio" name="puntuacion" value="3" id="star3-{{ galeria.id }}" {% if userRating==3
+                    %}checked{% endif %}>
+                <label for="star3-{{ galeria.id }}" class="star">&#9733;</label>
+
+                <input type="radio" name="puntuacion" value="2" id="star2-{{ galeria.id }}" {% if userRating==2
+                    %}checked{% endif %}>
+                <label for="star2-{{ galeria.id }}" class="star">&#9733;</label>
+
+                <input type="radio" name="puntuacion" value="1" id="star1-{{ galeria.id }}" {% if userRating==1
+                    %}checked{% endif %}>
+                <label for="star1-{{ galeria.id }}" class="star">&#9733;</label>
+            </div>
+
+            <button type="submit">Calificar</button>
+        </form>
+
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Formulario para publicar nueva reseña -->
+<div class="publish-container">
+    <h2>Publicar una nueva imagen</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="publicar" value="1">
+
+        <label for="descripcion">Descripción</label>
+        <textarea name="descripcion" required></textarea>
+
+        <label for="imagen">Imagen</label>
+        <input type="file" name="imagen" required>
+
+        <button type="submit">Publicar</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'footer.html.twig' %}
+{% endblock %}
