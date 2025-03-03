@@ -51,7 +51,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Calificacion>
      */
     #[ORM\OneToMany(targetEntity: Calificacion::class, mappedBy: 'user')]
-    private Collection $calificacions; 
+    private Collection $calificacions;
+
+    /**
+     * @var Collection<int, Comentario>
+     */
+    #[ORM\OneToMany(targetEntity: Comentario::class, mappedBy: 'user')]
+    private Collection $comentarios; 
 
     public function __construct()
     {
@@ -59,6 +65,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->roles = ['ROLE_USER'];
         $this->galerias = new ArrayCollection();
         $this->calificacions = new ArrayCollection();
+        $this->comentarios = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -245,6 +252,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($calificacion->getUser() === $this) {
                 $calificacion->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comentario>
+     */
+    public function getComentarios(): Collection
+    {
+        return $this->comentarios;
+    }
+
+    public function addComentario(Comentario $comentario): static
+    {
+        if (!$this->comentarios->contains($comentario)) {
+            $this->comentarios->add($comentario);
+            $comentario->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComentario(Comentario $comentario): static
+    {
+        if ($this->comentarios->removeElement($comentario)) {
+            // set the owning side to null (unless already changed)
+            if ($comentario->getUser() === $this) {
+                $comentario->setUser(null);
             }
         }
 

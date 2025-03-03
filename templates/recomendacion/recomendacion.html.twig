@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+{% block header %}
+{% include 'header.html.twig' %}
+{% endblock %}
+{% block title %}Recomendacion | Brekky{% endblock %}
+{% block stylesheets %}
+{% endblock %}
+{% block body %}
+<h1>Generar Recomendaciones</h1>
+
+<form method="get" id="recomendacion-form">
+    <div>
+        <label for="tipo">Tipo:</label>
+        <select id="tipo" name="tipo" onchange="updateOptions()">
+            <option value="">Seleccione un tipo</option>
+            <option value="ejercicio" {% if app.request.get('tipo') == 'ejercicio' %}selected{% endif %}>Ejercicio</option>
+            <option value="receta" {% if app.request.get('tipo') == 'receta' %}selected{% endif %}>Receta</option>
+            <option value="habito_saludable" {% if app.request.get('tipo') == 'habito_saludable' %}selected{% endif %}>Hábito Saludable</option>
+        </select>
+    </div>
+
+    <div id="categoria-container" style="display: none;">
+        <label for="categoria">Categoría:</label>
+        <select id="categoria" name="categoria">
+            <option value="">Seleccione una categoría</option>
+            <!-- Opciones dinámicas de categorías según el tipo -->
+        </select>
+    </div>
+
+    <div id="dias-container" style="display: none;">
+        <label for="dias">Días (si aplica):</label>
+        <select id="dias" name="dias">
+            <option value="">Seleccione los días</option>
+            <!-- Opciones dinámicas de días según el tipo -->
+        </select>
+    </div>
+
+    <button type="submit">Generar</button>
+</form>
+
+<div id="recomendaciones-container">
+    {% if recomendaciones and app.request.get('tipo') %}
+    <h2>Recomendaciones Generadas</h2>
+    <ul>
+        {% for recomendacion in recomendaciones %}
+            <li>{{ recomendacion.contenido }}</li>
+        {% endfor %}
+    </ul>
+{% elseif app.request.get('tipo') %}
+    <p>No se encontraron recomendaciones para los filtros seleccionados.</p>
+{% endif %}
+
+</div>
+
+<script>
+    // Esta función actualiza las opciones de categoría y días en función del tipo seleccionado
+    function updateOptions() {
+        var tipo = document.getElementById("tipo").value;
+        var categoriaContainer = document.getElementById("categoria-container");
+        var diasContainer = document.getElementById("dias-container");
+
+        // Limpiar las opciones anteriores
+        document.getElementById("categoria").innerHTML = '<option value="">Seleccione una categoría</option>';
+        document.getElementById("dias").innerHTML = '<option value="">Seleccione los días</option>';
+
+        // Mostrar el contenedor de categoría
+        categoriaContainer.style.display = tipo ? 'block' : 'none';
+
+        // Mostrar u ocultar el contenedor de días basado en el tipo seleccionado
+        if (tipo === "ejercicio") {
+            diasContainer.style.display = 'block';
+            addCategoryOptions(['fuerza', 'hipertrofia', 'resistencia']);
+            addDaysOptions([3, 4, 5]);
+        } else if (tipo === "receta") {
+            diasContainer.style.display = 'none';
+            addCategoryOptions(['dulce', 'salado']);
+        } else if (tipo === "habito_saludable") {
+            diasContainer.style.display = 'none';
+            addCategoryOptions(['estres', 'recuperacion', 'hidratacion', 'productividad']);
+        } else {
+            categoriaContainer.style.display = 'none';
+            diasContainer.style.display = 'none';
+        }
+    }
+
+    // Función para agregar las opciones de categorías
+    function addCategoryOptions(options) {
+        var categoriaSelect = document.getElementById("categoria");
+        options.forEach(function(option) {
+            var optionElement = document.createElement("option");
+            optionElement.value = option;
+            optionElement.text = option.charAt(0).toUpperCase() + option.slice(1);
+            categoriaSelect.appendChild(optionElement);
+        });
+    }
+
+    // Función para agregar las opciones de días
+    function addDaysOptions(options) {
+        var diasSelect = document.getElementById("dias");
+        options.forEach(function(option) {
+            var optionElement = document.createElement("option");
+            optionElement.value = option;
+            optionElement.text = option + ' Días';
+            diasSelect.appendChild(optionElement);
+        });
+    }
+
+    // Inicializar las opciones al cargar la página
+    document.addEventListener("DOMContentLoaded", function() {
+        updateOptions();
+    });
+
+    
+</script>
+
+{% endblock %}

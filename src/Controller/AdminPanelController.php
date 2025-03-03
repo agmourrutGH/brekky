@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Manager\AdminManager;
@@ -20,11 +21,22 @@ class AdminPanelController extends AbstractController
     public function index(): Response
     {
         // Obtener los productos desde el AdminManager
-        $productos = $this->adminManager->obtenerProductosOrdenadosPorPrecio();  // Llamamos al método correcto
+        $productos = $this->adminManager->obtenerProductosOrdenadosPorPrecio();  
 
         // Pasar los productos a la vista
         return $this->render('admin/adminProduct.html.twig', [
             'productos' => $productos,
+        ]);
+    }
+
+    #[Route('/admin/galeria', name: 'admin_galeria')]
+    public function indexGaleria(): Response
+    {
+        $galerias = $this->adminManager->obtenerGaleriasOrdenadasPorPublicacion();
+
+
+        return $this->render('admin/adminGaleria.html.twig', [
+            'galerias' => $galerias,
         ]);
     }
 }

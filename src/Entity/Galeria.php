@@ -34,11 +34,18 @@ class Galeria
     #[ORM\OneToMany(targetEntity: Calificacion::class, mappedBy: 'galeria')]
     private Collection $calificacion;
 
+    /**
+     * @var Collection<int, Comentario>
+     */
+    #[ORM\OneToMany(targetEntity: Comentario::class, mappedBy: 'galeria')]
+    private Collection $comentarios;
+
 
 
     public function __construct()
     {
         $this->calificacion = new ArrayCollection();
+        $this->comentarios = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -98,26 +105,55 @@ class Galeria
      * @return Collection<int, Calificacion>
      */
     public function getCalificaciones(): Collection
-{
-    return $this->calificacion;
-}
-
-public function addCalificacion(Calificacion $calificacion): self
-{
-    if (!$this->calificacion->contains($calificacion)) {
-        $this->calificacion[] = $calificacion;
-        $calificacion->setGaleria($this);
+    {
+        return $this->calificacion;
     }
-    return $this;
-}
 
-public function removeCalificacion(Calificacion $calificacion): self
-{
-    if ($this->calificacion->removeElement($calificacion)) {
-        if ($calificacion->getGaleria() === $this) {
-            $calificacion->setGaleria(null);
+    public function addCalificacion(Calificacion $calificacion): self
+    {
+        if (!$this->calificacion->contains($calificacion)) {
+            $this->calificacion[] = $calificacion;
+            $calificacion->setGaleria($this);
         }
+        return $this;
     }
-    return $this;
-}
+
+    public function removeCalificacion(Calificacion $calificacion): self
+    {
+        if ($this->calificacion->removeElement($calificacion)) {
+            if ($calificacion->getGaleria() === $this) {
+                $calificacion->setGaleria(null);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comentario>
+     */
+    public function getComentarios()
+    {
+        return $this->comentarios;
+    }
+
+    public function addComentario(Comentario $comentario): static
+    {
+        if (!$this->comentarios->contains($comentario)) {
+            $this->comentarios->add($comentario);
+            $comentario->setGaleria($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComentario(Comentario $comentario): static
+    {
+        if ($this->comentarios->removeElement($comentario)) {
+            if ($comentario->getGaleria() === $this) {
+                $comentario->setGaleria(null);
+            }
+        }
+
+        return $this;
+    }
 }
