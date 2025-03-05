@@ -39,7 +39,8 @@
             </div>
             <div></div>
             <div></div>
-            <div class="perfil" id="perfil-btn">Perfil</div>
+            <div id="perfil-btn"><img src="{{ asset(app.user.profilePicture|default('images/default-profile.png')) }}" alt="Foto de perfil"
+                class="perfil-picture"></div>
             {% else %}
             <div class="find-a-store">
                 <svg aria-hidden="true" class="valign-middle pr2" focusable="false" preserveAspectRatio="xMidYMid meet"

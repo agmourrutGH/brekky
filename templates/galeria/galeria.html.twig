@@ -78,7 +78,7 @@
                 <li class="comment-item">
                     <strong>{{ comentario.user.getNombre()  }}</strong>: {{ comentario.contenido }}
 
-                    <small>({{ comentario.fechaPublicacion|date('d/m/Y H:i') }})</small>
+                    <small>({{ comentario.fechaPublicacion|date('d/m/Y H:i', 'America/Argentina/Buenos_Aires') }})</small>
                 </li>
             {% else %}
                 <li>No hay comentarios aún.</li>

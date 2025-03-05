@@ -74,17 +74,13 @@ body {
     background-color: rgba(0, 0, 0, 0.06);
 }
 
-.perfil {
-    font-weight: 550;
-    border: 1.5px solid black;
-    border-radius: 40px;
-    padding: 5px 20px 5px 20px;
-    cursor: pointer;
-    background: black;
-    color: white;
+.perfil-picture {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
 }
 
-.perfil:hover {
+.perfil-picture:hover {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
