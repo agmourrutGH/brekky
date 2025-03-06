@@ -4,14 +4,15 @@
 {% endblock %}
 {% block title %}Recomendacion | Brekky{% endblock %}
 {% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/recomendacion.css') }}?v={{ random() }}" />
 {% endblock %}
 {% block body %}
-<h1>Generar Recomendaciones</h1>
+<h1 class="titulo">Generar Recomendaciones</h1>
 
-<form method="get" id="recomendacion-form">
-    <div>
+<form method="get" id="recomendacion-form" class="form-container">
+    <div class="form-group">
         <label for="tipo">Tipo:</label>
-        <select id="tipo" name="tipo" onchange="updateOptions()">
+        <select id="tipo" name="tipo" class="form-select" onchange="updateOptions()">
             <option value="">Seleccione un tipo</option>
             <option value="ejercicio" {% if app.request.get('tipo') == 'ejercicio' %}selected{% endif %}>Ejercicio</option>
             <option value="receta" {% if app.request.get('tipo') == 'receta' %}selected{% endif %}>Receta</option>
@@ -19,37 +20,34 @@
         </select>
     </div>
 
-    <div id="categoria-container" style="display: none;">
+    <div id="categoria-container" class="form-group hidden">
         <label for="categoria">Categoría:</label>
-        <select id="categoria" name="categoria">
+        <select id="categoria" name="categoria" class="form-select">
             <option value="">Seleccione una categoría</option>
-            <!-- Opciones dinámicas de categorías según el tipo -->
         </select>
     </div>
 
-    <div id="dias-container" style="display: none;">
+    <div id="dias-container" class="form-group hidden">
         <label for="dias">Días (si aplica):</label>
-        <select id="dias" name="dias">
+        <select id="dias" name="dias" class="form-select">
             <option value="">Seleccione los días</option>
-            <!-- Opciones dinámicas de días según el tipo -->
         </select>
     </div>
 
-    <button type="submit">Generar</button>
+    <button type="submit" class="btn-submit">Generar</button>
 </form>
 
-<div id="recomendaciones-container">
+<div id="recomendaciones-container" class="recomendaciones">
     {% if recomendaciones and app.request.get('tipo') %}
-    <h2>Recomendaciones Generadas</h2>
-    <ul>
-        {% for recomendacion in recomendaciones %}
-            <li>{{ recomendacion.contenido }}</li>
-        {% endfor %}
-    </ul>
-{% elseif app.request.get('tipo') %}
-    <p>No se encontraron recomendaciones para los filtros seleccionados.</p>
-{% endif %}
-
+        <h2>Recomendaciones Generadas</h2>
+        <ul class="recomendaciones-list">
+            {% for recomendacion in recomendaciones %}
+                <li class="recomendacion-item">{{ recomendacion.contenido }}</li>
+            {% endfor %}
+        </ul>
+    {% elseif app.request.get('tipo') %}
+        <p class="no-recomendaciones">No se encontraron recomendaciones para los filtros seleccionados.</p>
+    {% endif %}
 </div>
 
 <script>
@@ -114,3 +112,5 @@
 </script>
 
 {% endblock %}
+
+

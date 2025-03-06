@@ -25,6 +25,43 @@ body {
     margin-right: 30px;
 }
 
+.navbar-left .a {
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    position: relative;
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.navbar-left .menu {
+    text-transform: uppercase;
+    font-weight: 700;
+    padding-bottom: 5px;
+    display: inline-block;
+    position: relative;
+    color: black; /* Asegurar color inicial */
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-left .menu::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background-color: rgb(183, 144, 106);
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.navbar-left .a:hover .menu {
+    color: rgb(183, 144, 106);
+}
+
+.navbar-left .a:hover .menu::after {
+    width: 100%;
+    left: 0;
+}
+
 .navbar-left div:hover,
 .find-a-store:hover {
     color: rgb(183, 144, 106);
@@ -78,22 +115,19 @@ body {
     width: 60px;
     height: 60px;
     border-radius: 50%;
+    cursor: pointer;
+    margin-right: 10px;
 }
 
 .perfil-picture:hover {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-.menu{
-    color: black;
-}
-.a{
-    text-decoration: none;
-}
 
 
 
-/* Estilo para el modal */
+
+
 .profile-dropdown {
     position: absolute;
     top: 108px; /* Ajusta según la altura de tu header */

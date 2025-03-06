@@ -51,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Calificacion>
      */
     #[ORM\OneToMany(targetEntity: Calificacion::class, mappedBy: 'user')]
-    private Collection $calificacions;
+    private Collection $calificacion;
 
     /**
      * @var Collection<int, Comentario>
@@ -64,7 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // Asignar un rol por defecto
         $this->roles = ['ROLE_USER'];
         $this->galerias = new ArrayCollection();
-        $this->calificacions = new ArrayCollection();
+        $this->calificacion = new ArrayCollection();
         $this->comentarios = new ArrayCollection();
     }
 
@@ -233,13 +233,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getCalificacions(): Collection
     {
-        return $this->calificacions;
+        return $this->calificacion;
     }
 
     public function addCalificacion(Calificacion $calificacion): static
     {
-        if (!$this->calificacions->contains($calificacion)) {
-            $this->calificacions->add($calificacion);
+        if (!$this->calificacion->contains($calificacion)) {
+            $this->calificacion->add($calificacion);
             $calificacion->setUser($this);
         }
 
@@ -248,7 +248,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeCalificacion(Calificacion $calificacion): static
     {
-        if ($this->calificacions->removeElement($calificacion)) {
+        if ($this->calificacion->removeElement($calificacion)) {
             // set the owning side to null (unless already changed)
             if ($calificacion->getUser() === $this) {
                 $calificacion->setUser(null);

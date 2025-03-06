@@ -1,3 +1,73 @@
+body {
+    font-family: Helvetica neue, Helvetica, Arial, sans-serif;
+    background-color: #f8f8f8;
+}
+
+.titulo {
+    text-align: center;
+    color: #333;
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn-submit {
+    width: 100%;
+    background-color: rgb(183, 144, 106);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: rgb(104, 75, 46);
+}
+
 .hidden {
     display: none;
+}
+
+.recomendaciones {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.recomendaciones-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.recomendacion-item {
+    background: #e9ecef;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+}
+
+.no-recomendaciones {
+    text-align: center;
+    color: #666;
 }
