@@ -23,6 +23,7 @@ body {
     color: #333;
     text-decoration: none;
     justify-content: flex-end;
+    height: 0px;
 }
 
 .admin-icon {

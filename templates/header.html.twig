@@ -18,9 +18,9 @@
                 <div class="menu">Galeria</div>
             </a>
             {% else %}
-            <div>Menú</div>
-            <div>Recomendaciones</div>
-            <div>Galeria</div>
+            <div class="a"><p class="menu">Menú</p></div>
+            <div class="a"><p class="menu">Recomendaciones</p></div>
+            <div class="a"><p class="menu">Galeria</p></div>
             {% endif %}
         </div>
         <div class="navbar-right">
@@ -37,8 +37,7 @@
                     <div>Encuentra tu Tienda</div>
                 </a>
             </div>
-            <div></div>
-            <div></div>
+            
             <div id="perfil-btn"><img src="{{ asset(app.user.profilePicture|default('images/default-profile.png')) }}" alt="Foto de perfil"
                 class="perfil-picture"></div>
             {% else %}
