@@ -32,13 +32,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = []; // Cambiado de 'rol' a 'roles' para más claridad
 
-    // Nuevos campos para latitud y longitud
-    #[ORM\Column(type: "float", nullable: true)]
-    private ?float $latitud = null;
-
-    #[ORM\Column(type: "float", nullable: true)]
-    private ?float $longitud = null;
-
     private ?string $plainPassword = null;
 
     /**
@@ -121,30 +114,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    // Nuevos métodos para latitud y longitud
-    public function getLatitud(): ?float
-    {
-        return $this->latitud;
-    }
-
-    public function setLatitud(?float $latitud): static
-    {
-        $this->latitud = $latitud;
-
-        return $this;
-    }
-
-    public function getLongitud(): ?float
-    {
-        return $this->longitud;
-    }
-
-    public function setLongitud(?float $longitud): static
-    {
-        $this->longitud = $longitud;
-
-        return $this;
-    }
 
     /**
      * Obtiene los roles del usuario.

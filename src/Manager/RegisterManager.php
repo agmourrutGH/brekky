@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Manager;
 
 use App\Entity\User;
@@ -23,15 +24,15 @@ class RegisterManager
         // Verifica si ya existe un usuario con ese email
         $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
         if ($existingUser) {
-            return null; // El email ya está en uso
+            return null;
         }
 
         // Crear el nuevo usuario
         $user = new User();
         $user->setNombre($nombre);
         $user->setEmail($email);
-        $user->setPassword($password);  // Ya codificado
-        $user->setRoles(['ROLE_USER']); // Asignar el rol por defecto
+        $user->setPassword($password);
+        $user->setRoles(['ROLE_USER']);
 
         // Guardar en la base de datos
         $this->entityManager->persist($user);
@@ -39,4 +40,5 @@ class RegisterManager
 
         return $user;
     }
+
 }

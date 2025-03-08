@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Entity\User;
@@ -19,19 +20,27 @@ class RegisterController extends AbstractController
             $nombre = $request->get('nombre');
             $email = $request->get('email');
             $password = $request->get('password');
-            
-            // Hashea la contraseña usando UserPasswordHasherInterface
-            $hashedPassword = $passwordHasher->hashPassword(
-                new User(),  // Se crea un nuevo User solo para hashear la contraseña
-                $password
-            );
-            
 
-            // Llama al manager con la contraseña hasheada
+            // Validar el nombre
+            if (!$this->isNombreValido($nombre)) {
+                $this->addFlash('error', 'El nombre debe tener al menos 2 caracteres y no debe contener caracteres especiales.');
+                return $this->redirectToRoute('app_register');
+            }
+
+            // Validar la contraseña
+            if (!$this->isPasswordValid($password, $email, $nombre)) {
+                $this->addFlash('error', 'La contraseña no cumple con los requisitos de seguridad.');
+                return $this->redirectToRoute('app_register');
+            }
+
+            // Hashea la contraseña antes de guardarla
+            $hashedPassword = $passwordHasher->hashPassword(new User(), $password);
+
+            // Registrar el usuario
             $usuario = $registerManager->register($nombre, $email, $hashedPassword);
 
-            if (!$usuario) { 
-                $this->addFlash('error', 'Las contraseñas no coinciden o el correo no es válido.');
+            if (!$usuario) {
+                $this->addFlash('error', 'El correo ya está registrado.');
                 return $this->redirectToRoute('app_register');
             }
 
@@ -39,5 +48,37 @@ class RegisterController extends AbstractController
         }
 
         return $this->render('register/register.html.twig');
+    }
+
+    // Función para validar el nombre de usuario
+    private function isNombreValido(string $nombre): bool
+    {
+        return preg_match('/^[a-zA-Z0-9 ]{2,}$/', $nombre); // Al menos 2 caracteres, sin caracteres especiales
+    }
+
+    // Función para validar la contraseña
+    private function isPasswordValid(string $password, string $email, string $nombre): bool
+    {
+        if (strlen($password) < 8) {
+            return false;
+        }
+
+        if (!preg_match('/[A-Z]/', $password)) {
+            return false;
+        }
+
+        if (!preg_match('/\d/', $password)) {
+            return false;
+        }
+
+        if (!preg_match('/[!@#$%^&*]/', $password)) {
+            return false;
+        }
+
+        if ($password === $email || $password === $nombre) {
+            return false;
+        }
+
+        return true;
     }
 }

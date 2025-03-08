@@ -3,64 +3,116 @@
 {% block title %}Registrar Cuenta{% endblock %}
 
 {% block stylesheets %}
-    {# Cargamos el CSS de registro desde la carpeta public/css #}
-    <link rel="stylesheet" href="{{ asset('css/register.css') }}?v=1.0">
+{# Cargamos el CSS de registro desde la carpeta public/css #}
+<link rel="stylesheet" href="{{ asset('css/register.css') }}?v=1.0">
 
 {% endblock %}
 
 {% block content %}
-    {# Navbar con logo (utiliza asset() para la imagen) #}
-    <div class="navbar">
-        <a href="{{ path('app_home') }}">
+{# Navbar con logo (utiliza asset() para la imagen) #}
+<div class="navbar">
+    <a href="{{ path('app_home') }}">
         <div class="navbar-left">
             <img src="{{ asset('images/logo.webp') }}" alt="Logo de la página">
         </div>
-        </a>
-    </div>
+    </a>
+</div>
 
-    {# Mostramos los mensajes flash, en caso de existir #}
-    {% for label, messages in app.flashes %}
-        <div class="alert alert-{{ label }}">
-            {{ messages | join(', ') }}
-        </div>
-    {% endfor %}
+{# Mostramos los mensajes flash, en caso de existir #}
+{% for label, messages in app.flashes %}
+<div class="alert alert-{{ label }}">
+    {{ messages | join(', ') }}
+</div>
+{% endfor %}
 
-    <div class="container">
-        <div class="register-container">
-            <h2>Crear una cuenta</h2>
-            <p class="description">
-                Únase a Brekky® para poder ganar recomendaciones y ver la galería de la comunidad.
+<div class="container">
+    <div class="register-container">
+        <h2>Crear una cuenta</h2>
+        <p class="description">
+            Únase a Brekky® para poder ganar recomendaciones y ver la galería de la comunidad.
+        </p>
+        <p class="description1">* indica campo obligatorio.</p>
+
+        <form action="{{ path('app_register') }}" method="post">
+            <label for="first-name">* Nombre de la cuenta</label>
+            <input type="text" id="first-name" name="nombre" required>
+
+            <label for="email">* Dirección de correo electrónico</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">* Contraseña</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <p class="description2">
+                Cree una contraseña de entre 8 y 25 caracteres que incluya al menos 1 letra mayúscula y 1 letra
+                minúscula, 1 número y 1 carácter especial, como un signo de exclamación o un asterisco.
             </p>
-            <p class="description1">* indica campo obligatorio.</p>
-            
-            {# Formulario de registro, se mantiene la acción y método para enviar los datos al controlador #}
-            <form action="{{ path('app_register') }}" method="post">
-                <label for="first-name">* Nombre de la cuenta</label>
-                <input type="text" id="first-name" name="nombre" required>
 
-                <label for="email">* Dirección de correo electrónico</label>
-                <input type="email" id="email" name="email" required>
+            <div class="checkbox-container">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">
+                    Estoy de acuerdo con las <a href="#">Condiciones de Brekky®</a> y
+                    <a href="#">Declaración de privacidad de Brekky®</a>.
+                </label>
+            </div>
 
-                <label for="password">* Contraseña</label>
-                <div class="password-container">
-                    <input type="password" id="password" name="password" required>
-                </div>
-                
-                <p class="description2">
-                    Cree una contraseña de entre 8 y 25 caracteres que incluya al menos 1 letra mayúscula y 1 letra
-                    minúscula, 1 número y 1 carácter especial, como un signo de exclamación o un asterisco.
-                </p>
-
-                <div class="checkbox-container">
-                    <input type="checkbox" id="terms" name="terms" required>
-                    <label for="terms">
-                        Estoy de acuerdo con las <a href="#">Condiciones de Brekky®</a> y 
-                        <a href="#">Declaración de privacidad de Brekky®</a>.
-                    </label>
-                </div>
-
-                <button type="submit">Crear una cuenta</button>
-            </form>
-        </div>
+            <button type="submit">Crear una cuenta</button>
+        </form>
     </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
+    const errorContainer = document.createElement("div");
+    errorContainer.style.color = "red";
+    errorContainer.style.fontWeight = "bold";
+    errorContainer.style.marginTop = "10px";
+    form.prepend(errorContainer); // Inserta el mensaje antes del formulario
+
+    form.addEventListener("submit", function (event) {
+        let nombre = document.getElementById("first-name").value;
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+
+        let errorMessage = "";
+
+        // Validación de nombre
+        if (nombre.length < 2 || /[^a-zA-Z0-9 ]/.test(nombre)) {
+            errorMessage += "El nombre debe tener al menos 2 caracteres y no puede contener caracteres especiales.<br>";
+        }
+
+        // Validación de contraseña
+        if (password.length < 8) {
+            errorMessage += "La contraseña debe tener al menos 8 caracteres.<br>";
+        }
+        if (!/[A-Z]/.test(password)) {
+            errorMessage += "La contraseña debe contener al menos una letra mayúscula.<br>";
+        }
+        if (!/\d/.test(password)) {
+            errorMessage += "La contraseña debe contener al menos un número.<br>";
+        }
+        if (!/[!@#$%^&*]/.test(password)) {
+            errorMessage += "La contraseña debe contener al menos un carácter especial (!@#$%^&*).<br>";
+        }
+        if (password === email || password === nombre) {
+            errorMessage += "La contraseña no puede ser igual al email o al nombre de usuario.<br>";
+        }
+
+        if (errorMessage !== "") {
+            event.preventDefault(); // Evita el envío del formulario
+            errorContainer.innerHTML = errorMessage;
+            
+            // Desaparece el mensaje después de 1 segundo
+            setTimeout(() => {
+                errorContainer.innerHTML = "";
+            }, 5000);
+        }
+    });
+});
+</script>
+
+
 {% endblock %}

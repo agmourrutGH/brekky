@@ -4,34 +4,48 @@
 {% endblock %}
 {% block title %}Crear Producto | Brekky{% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/crearProducto.css') }}?v={{ random() }}">
+<link rel="stylesheet" href="{{ asset('css/crearProducto.css') }}?v={{ random() }}">
 {% endblock %}
 
 {% block body %}
-    <h2>Agregar Nuevo Producto</h2>
+<h2>Agregar Nuevo Producto</h2>
 
-    <form method="POST" action="{{ path('create_product') }}" enctype="multipart/form-data">
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" required>
-        
-        <label for="descripcion">Descripción</label>
-        <textarea id="descripcion" name="descripcion" required></textarea>
+<form method="POST" action="{{ path('create_product') }}" enctype="multipart/form-data">
+    <label for="nombre">Nombre</label>
+    <input type="text" id="nombre" name="nombre" required>
 
-        <label for="precio">Precio</label>
-        <input type="number" id="precio" name="precio" step="0.01" required>
+    <label for="descripcion">Descripción</label>
+    <textarea id="descripcion" name="descripcion" required></textarea>
 
-        <label for="categoria">Categoría</label>
-        <select id="categoria" name="categoria" required>
-            {% for categoria in categorias %}
-                <option value="{{ categoria.nombre }}">{{ categoria.nombre }}</option>
-            {% endfor %}
-        </select>
+    <label for="precio">Precio</label>
+    <input type="number" id="precio" name="precio" step="0.01" min="0" required>
 
-        <label for="imagen">Imagen</label>
-        <input type="file" id="imagen" name="imagen">
+    <label for="categoria">Categoría</label>
+    <select id="categoria" name="categoria" required>
+        {% for categoria in categorias %}
+        <option value="{{ categoria.nombre }}">{{ categoria.nombre }}</option>
+        {% endfor %}
+    </select>
 
-        <button type="submit">Guardar</button>
-    </form>
+    <label for="imagen">Imagen</label>
+    <input type="file" id="imagen" name="imagen">
+
+    <button type="submit">Guardar</button>
+</form>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("precio").addEventListener("input", function () {
+            if (this.value < 0) {
+                alert("El precio no puede ser negativo.");
+                this.value = 0; // Reinicia el valor a 0 si es negativo
+            }
+        });
+    });
+
+</script>
 {% endblock %}
 
 
