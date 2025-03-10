@@ -17,13 +17,13 @@ class AdminPanelController extends AbstractController
     }
 
     #[Route('/admin/productos', name: 'admin_productos')]
-    // Obtener los productos desde el AdminManager
+    
     public function index(): Response
     {
-        // Obtener los productos desde el AdminManager
+        
         $productos = $this->adminManager->obtenerProductosOrdenadosPorPrecio();  
 
-        // Pasar los productos a la vista
+        
         return $this->render('admin/adminProduct.html.twig', [
             'productos' => $productos,
         ]);

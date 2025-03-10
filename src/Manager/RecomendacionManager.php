@@ -28,7 +28,7 @@ class RecomendacionManager
                 ->setParameter('categoria', $categoria);
         }
     
-        // Si el tipo es 'ejercicio', filtrar por días
+        
         if ($tipo === 'ejercicio' && $dias !== null) {
             $qb->andWhere('r.dias = :dias')
                 ->setParameter('dias', $dias);

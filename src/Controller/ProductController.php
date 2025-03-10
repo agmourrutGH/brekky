@@ -48,7 +48,7 @@ final class ProductController extends AbstractController
     #[Route('/product/{idProduct}', name: 'detalle_product', requirements: ['idProduct' => '\d+'])]
     public function detalle_product(int $idProduct): Response
     {
-        $product = $this->productmanager->getProduct((int) $idProduct); // 👈 Convertir a entero por seguridad
+        $product = $this->productmanager->getProduct((int) $idProduct); 
 
         if (!$product) {
             throw $this->createNotFoundException('Producto no encontrado.');
@@ -63,7 +63,7 @@ final class ProductController extends AbstractController
         // Obtener todas las categorías de la base de datos
         $categorias = $this->categoriaRepository->findAll();
 
-        // Renderizar el formulario y pasar las categorías
+        
         return $this->render('menu/new.html.twig', [
             'categorias' => $categorias,
         ]);
@@ -89,7 +89,7 @@ final class ProductController extends AbstractController
         } elseif (in_array($categoriaNombre, $comidasCategorias)) {
             $categoriaTipo = 'comidas';
         } else {
-            $categoriaTipo = 'otros'; // Si no es bebida ni comida, otra categoría
+            $categoriaTipo = 'otros'; 
         }
 
         // Buscar la categoría en la base de datos

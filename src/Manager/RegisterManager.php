@@ -21,20 +21,20 @@ class RegisterManager
      */
     public function register(string $nombre, string $email, string $password): ?User
     {
-        // Verifica si ya existe un usuario con ese email
+        
         $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
         if ($existingUser) {
             return null;
         }
 
-        // Crear el nuevo usuario
+        
         $user = new User();
         $user->setNombre($nombre);
         $user->setEmail($email);
         $user->setPassword($password);
         $user->setRoles(['ROLE_USER']);
 
-        // Guardar en la base de datos
+        
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 

@@ -17,7 +17,7 @@ class AdminManager
     public function obtenerProductosOrdenadosPorPrecio(): array
     {
         return $this->entityManager->getRepository(Product::class)
-            ->findBy([], ['Price' => 'DESC']);  // Puedes cambiar 'Price' por el campo que desees ordenar
+            ->findBy([], ['Price' => 'DESC']);
     }
 
     public function obtenerGaleriasOrdenadasPorPublicacion(bool $ordenDescendente = true): array

@@ -50,7 +50,7 @@ class RegisterController extends AbstractController
         return $this->render('register/register.html.twig');
     }
 
-    // Función para validar el nombre de usuario
+    
     private function isNombreValido(string $nombre): bool
     {
         return preg_match('/^[a-zA-Z0-9 ]{2,}$/', $nombre); // Al menos 2 caracteres, sin caracteres especiales

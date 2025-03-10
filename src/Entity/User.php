@@ -27,10 +27,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $profilePicture = null; // Renombrado de 'photo' a 'profilePicture'
+    private ?string $profilePicture = null;
 
     #[ORM\Column]
-    private array $roles = []; // Cambiado de 'rol' a 'roles' para más claridad
+    private array $roles = []; 
 
     private ?string $plainPassword = null;
 
@@ -54,7 +54,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        // Asignar un rol por defecto
         $this->roles = ['ROLE_USER'];
         $this->galerias = new ArrayCollection();
         $this->calificacion = new ArrayCollection();
@@ -104,7 +103,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getProfilePicture(): ?string
     {
-        return $this->profilePicture; // Renombrado a 'getProfilePicture'
+        return $this->profilePicture; 
     }
 
     public function setProfilePicture(?string $profilePicture): static
@@ -123,7 +122,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        // Agrega `ROLE_USER` por defecto si no está asignado
+        
         return array_unique($this->roles);
     }
 

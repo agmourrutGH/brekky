@@ -25,17 +25,16 @@ class GaleriaController extends AbstractController
         $user = $this->getUser();
         $galerias = $this->galeriaManager->getGalerias();
 
-        // 🔹 Agregar la calificación del usuario a cada galería
+        //  Agregar la calificación del usuario a cada galería
         foreach ($galerias as $galeria) {
             $calificacion = $this->galeriaManager->getCalificacionUsuarioEntity($galeria, $user);
             $galeria->calificacionUsuario = $calificacion ? $calificacion->getPuntuacion() : null;
 
             // Cargar los comentarios de la galería
-            // Ya no necesitas setComentarios, solo accede a la colección de comentarios con getComentarios()
             $comentarios = $galeria->getComentarios(); // Obtener la colección de comentarios
         }
 
-        // 🔹 Procesar publicación de imágenes
+        
         if ($request->isMethod('POST') && $request->request->has('publicar')) {
             $descripcion = $request->request->get('descripcion');
             $imagen = $request->files->get('imagen');
@@ -58,7 +57,7 @@ class GaleriaController extends AbstractController
             }
         }
 
-        // 🔹 Procesar calificación de imágenes
+        
         if ($request->isMethod('POST') && $request->request->has('calificar')) {
             $galeriaId = (int) $request->request->get('galeria_id');
             $puntuacion = (int) $request->request->get('puntuacion');
@@ -87,7 +86,7 @@ class GaleriaController extends AbstractController
             }
         }
 
-        // 🔹 Procesar publicación de comentarios
+        //  Procesar publicación de comentarios
         if ($request->isMethod('POST') && $request->request->has('comentar')) {
             $galeriaId = (int) $request->request->get('galeria_id');
             $contenido = trim($request->request->get('contenido'));

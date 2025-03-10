@@ -65,7 +65,7 @@ class ProductManager
         }
 
 
-        // Guardar el producto en la base de datos
+        
         $this->entityManager->persist($product);
         $this->entityManager->flush();
 
