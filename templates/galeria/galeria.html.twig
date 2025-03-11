@@ -27,6 +27,7 @@
 <div class="gallery-container">
     {% for galeria in galerias %}
     <div class="gallery-item">
+        <p class="center-name">{{galeria.user.getNombre() }}</p>
         {% if galeria.imagen %}
         <img class="gallery-image" src="{{ asset('uploads/imagenes/' ~ galeria.imagen) }}" alt="Imagen de la galería">
         {% else %}

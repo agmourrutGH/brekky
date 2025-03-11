@@ -190,3 +190,9 @@ body {
 .publish-btn:hover {
     background-color: rgb(97, 72, 48);
 }
+
+.center-name{
+    text-align: center;
+    margin: 3px;
+    font-weight: bold;
+}
